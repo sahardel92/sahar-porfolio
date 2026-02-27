@@ -48,11 +48,13 @@ function WorkRow({ work, index }: { work: Work; index: number }) {
     const rect = row.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
+
     gsap.to(thumb, {
-      x: x - 120,
-      y: y - 90,
-      duration: 0.4,
-      ease: "power2.out",
+      x: x - 160,
+      y: y - 110,
+      duration: 0.5,
+      ease: "power3.out",
+      overwrite: "auto",
     });
   }
 
@@ -61,8 +63,10 @@ function WorkRow({ work, index }: { work: Work; index: number }) {
     gsap.to(thumbRef.current, {
       opacity: 1,
       scale: 1,
-      duration: 0.4,
+      rotation: Math.random() * 4 - 2,
+      duration: 0.6,
       ease: "power3.out",
+      overwrite: "auto",
     });
   }
 
@@ -70,9 +74,11 @@ function WorkRow({ work, index }: { work: Work; index: number }) {
     setIsHovered(false);
     gsap.to(thumbRef.current, {
       opacity: 0,
-      scale: 0.88,
-      duration: 0.3,
-      ease: "power3.in",
+      scale: 0.85,
+      rotation: 0,
+      duration: 0.4,
+      ease: "power2.inOut",
+      overwrite: "auto",
     });
   }
 
@@ -80,31 +86,31 @@ function WorkRow({ work, index }: { work: Work; index: number }) {
     <TransitionLink
       ref={rowRef}
       href={`/works/${work.slug.current}`}
-      className="group relative py-8 md:py-14 flex flex-col md:flex-row md:items-center justify-between md:cursor-none px-4 md:px-8 -mx-4 md:-mx-8 overflow-hidden bg-white text-[#0A192F] no-underline"
+      className="group relative py-10 md:py-16 flex flex-col md:flex-row md:items-center justify-between md:cursor-none px-4 md:px-8 -mx-4 md:-mx-8 overflow-hidden bg-white text-black no-underline"
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {/* Top border line */}
       <div
-        className={`work-line absolute top-0 left-0 h-[1px] w-full transition-colors duration-300 ${isHovered ? "bg-[#0A192F]/40" : "bg-[#0A192F]/20"}`}
+        className={`work-line absolute top-0 left-0 h-[1px] w-full transition-colors duration-500 ${isHovered ? "bg-black/20" : "bg-black/10"}`}
       />
 
       {/* Floating thumbnail */}
       <div
         ref={thumbRef}
-        className="pointer-events-none absolute z-10 w-60 h-44 overflow-hidden opacity-0 scale-[0.88] hidden md:block"
+        className="pointer-events-none absolute z-20 w-64 h-48 md:w-80 md:h-56 overflow-hidden opacity-0 scale-[0.85] hidden md:block rounded-xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)]"
         style={{ top: 0, left: 0 }}
       >
         {work.image ? (
           <img
-            src={urlFor(work.image).width(480).height(352).fit("crop").url()}
+            src={urlFor(work.image).width(640).height(448).fit("crop").url()}
             alt={work.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
           />
         ) : (
-          <div className="w-full h-full bg-[#0A192F]/10 flex items-center justify-center">
-            <span className="text-xs uppercase tracking-widest opacity-30">
+          <div className="w-full h-full bg-neutral-100 flex items-center justify-center">
+            <span className="text-xs uppercase tracking-widest opacity-30 text-black">
               {work.category}
             </span>
           </div>
@@ -112,27 +118,28 @@ function WorkRow({ work, index }: { work: Work; index: number }) {
       </div>
 
       {/* Left — title + meta */}
-      <div className="work-item-content flex flex-col gap-3 md:gap-4 relative z-0">
-        <div className="flex items-center gap-3 md:gap-6">
-          <span className="text-sm font-mono opacity-30 w-6">
+      <div className="work-item-content flex flex-col md:flex-row md:items-center gap-4 md:gap-12 relative z-10 w-full group-hover:translate-x-2 md:group-hover:translate-x-6 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]">
+        <div className="flex items-center gap-6 md:gap-10 flex-1">
+          <span className="text-sm font-mono opacity-20 group-hover:opacity-100 transition-opacity duration-500 w-8">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-medium tracking-tighter group-hover:italic transition-all duration-300">
+          <h3 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-neutral-900 group-hover:text-black transition-colors duration-500">
             {work.title}
           </h3>
         </div>
-        <div className="flex items-center gap-3 md:gap-4 pl-9 md:pl-12 flex-wrap">
-          <span className="text-sm md:text-lg opacity-50 font-light">
+
+        <div className="flex items-center gap-3 md:gap-4 pl-14 md:pl-0 flex-wrap flex-1 justify-start md:justify-end md:pr-12">
+          <span className="text-xs uppercase tracking-widest text-neutral-400 group-hover:text-black transition-colors duration-500">
             {work.category}
           </span>
           {work.tags && work.tags.length > 0 && (
             <>
-              <span className="opacity-20">·</span>
-              <div className="flex gap-2 flex-wrap">
-                {work.tags.slice(0, 3).map((tag) => (
+              <span className="opacity-20 hidden md:inline">·</span>
+              <div className="hidden md:flex gap-2 flex-wrap">
+                {work.tags.slice(0, 2).map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs uppercase tracking-wider border border-[#0A192F]/20 px-2 py-0.5 font-medium opacity-50"
+                    className="text-[10px] uppercase tracking-wider px-2 py-1 font-medium text-neutral-400 group-hover:text-neutral-600 transition-colors duration-500"
                   >
                     {tag}
                   </span>
@@ -144,15 +151,22 @@ function WorkRow({ work, index }: { work: Work; index: number }) {
       </div>
 
       {/* Right — year + arrow */}
-      <div className="work-item-content mt-4 md:mt-0 flex items-center gap-4 md:gap-8 shrink-0 relative z-0">
-        <span className="text-lg md:text-2xl font-light opacity-40">
+      <div className="work-item-content flex items-center gap-6 md:gap-10 shrink-0 relative z-10 mt-6 md:mt-0 pl-14 md:pl-0 group-hover:-translate-x-2 md:group-hover:-translate-x-6 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]">
+        <span className="text-sm font-mono text-neutral-400 group-hover:text-black transition-colors duration-500">
           {work.year}
         </span>
-        <ArrowRight
-          size={28}
-          className="md:w-10 md:h-10 transform -rotate-45 group-hover:rotate-0 transition-transform duration-500"
-          strokeWidth={1}
-        />
+        <div className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-neutral-200 flex items-center justify-center group-hover:bg-black group-hover:border-black transition-all duration-500 overflow-hidden relative">
+          <ArrowRight
+            size={22}
+            className="transform -translate-x-[200%] md:-translate-x-[250%] text-white group-hover:translate-x-0 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] absolute"
+            strokeWidth={1.5}
+          />
+          <ArrowRight
+            size={22}
+            className="transform translate-x-0 text-neutral-400 group-hover:translate-x-[200%] md:group-hover:translate-x-[250%] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] absolute"
+            strokeWidth={1.5}
+          />
+        </div>
       </div>
     </TransitionLink>
   );
