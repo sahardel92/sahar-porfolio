@@ -4,6 +4,12 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Remove browser default link highlight/overlay on hover */
+a {
+    -webkit-tap-highlight-color: transparent;
+    color: inherit;
+}
+
 /* Page transition overlay */
 .page-transition-overlay {
     position: fixed;
