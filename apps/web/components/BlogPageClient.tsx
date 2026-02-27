@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import Link from 'next/link';
+import TransitionLink from './TransitionLink';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -69,19 +69,19 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                         <h1 className="text-sm uppercase tracking-widest opacity-60 font-medium">
                             All Articles ({posts.length})
                         </h1>
-                        <Link
+                        <TransitionLink
                             href="/"
                             className="group flex items-center gap-2 text-sm uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity font-medium"
                         >
                             <ArrowLeft size={14} className="transform group-hover:-translate-x-1 transition-transform" />
                             Back Home
-                        </Link>
+                        </TransitionLink>
                     </div>
 
                     {/* Posts Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
                         {currentPosts.map((post, index) => (
-                            <Link key={post._id || index} href={`/blog/${post.slug.current}`}>
+                            <TransitionLink key={post._id || index} href={`/blog/${post.slug.current}`}>
                                 <article className="blog-page-item group cursor-pointer">
                                     <div className="aspect-[4/5] overflow-hidden relative mb-8">
                                         {post.coverImage ? (
@@ -103,7 +103,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                                         <p className="text-sm opacity-50 mt-3 leading-relaxed line-clamp-2">{post.excerpt}</p>
                                     )}
                                 </article>
-                            </Link>
+                            </TransitionLink>
                         ))}
                     </div>
 
@@ -125,8 +125,8 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                                         key={page}
                                         onClick={() => goToPage(page)}
                                         className={`w-10 h-10 flex items-center justify-center text-sm font-mono transition-all duration-300 ${page === currentPage
-                                                ? 'bg-[#0A192F] text-white'
-                                                : 'opacity-40 hover:opacity-100 hover:bg-[#0A192F]/5'
+                                            ? 'bg-[#0A192F] text-white'
+                                            : 'opacity-40 hover:opacity-100 hover:bg-[#0A192F]/5'
                                             }`}
                                     >
                                         {page}

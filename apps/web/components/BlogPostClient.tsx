@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import Link from 'next/link';
+import TransitionLink from './TransitionLink';
 import { ArrowLeft } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -138,12 +138,12 @@ export default function BlogPostClient({ post }: BlogPostClientProps) {
             <section className="min-h-screen px-6 md:px-16 lg:px-24 pt-32 md:pt-40 pb-24">
                 <div className="max-w-4xl mx-auto">
                     {/* Back link */}
-                    <Link
+                    <TransitionLink
                         href="/blog"
                         className="blog-back-link flex items-center gap-3 text-base md:text-lg font-light hover:italic transition-all mb-16 md:mb-24 opacity-0"
                     >
                         <ArrowLeft size={20} strokeWidth={1.5} /> Back to Blog
-                    </Link>
+                    </TransitionLink>
 
                     {/* Date */}
                     <p className="blog-date text-sm opacity-0 mb-6 md:mb-8 font-mono">{formatDate(post.date)}</p>

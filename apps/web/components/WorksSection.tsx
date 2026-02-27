@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import Link from 'next/link';
+import TransitionLink from './TransitionLink';
 import { ArrowRight } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -46,7 +46,7 @@ function WorkRow({ work, index }: { work: Work; index: number }) {
     }
 
     return (
-        <Link
+        <TransitionLink
             ref={rowRef}
             href={`/works/${work.slug.current}`}
             className="group relative py-8 md:py-14 flex flex-col md:flex-row md:items-center justify-between md:cursor-none px-4 md:px-8 -mx-4 md:-mx-8 overflow-hidden"
@@ -110,7 +110,7 @@ function WorkRow({ work, index }: { work: Work; index: number }) {
                     strokeWidth={1}
                 />
             </div>
-        </Link>
+        </TransitionLink>
     );
 }
 

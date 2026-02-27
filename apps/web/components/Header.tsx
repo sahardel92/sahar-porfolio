@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
+import { useState, useRef, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import TransitionLink from './TransitionLink';
 
 const navLinks = [
     { title: 'Home', href: '/' },
@@ -21,16 +21,17 @@ interface HeaderProps {
 export default function Header({ siteName = 'PORTFOLIO.' }: HeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
-    const hasMounted = useRef(false);
+    const prevIsOpen = useRef(isMenuOpen);
 
     useGSAP(() => {
         const menu = menuRef.current;
         if (!menu) return;
 
-        if (!hasMounted.current) {
-            hasMounted.current = true;
+        // Only run animation if state actually changed from previous render
+        if (prevIsOpen.current === isMenuOpen) {
             return;
         }
+        prevIsOpen.current = isMenuOpen;
 
         if (isMenuOpen) {
             const progress = { left: 0, right: 0 };
@@ -53,16 +54,23 @@ export default function Header({ siteName = 'PORTFOLIO.' }: HeaderProps) {
         }
     }, [isMenuOpen]);
 
-    useEffect(() => {
-        document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
+    // Close the menu instantly (no animation) — used before page transitions
+    const closeMenuInstantly = useCallback(() => {
+        const menu = menuRef.current;
+        if (menu && isMenuOpen) {
+            // Reset clip-path immediately to hidden state
+            menu.style.clipPath = 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)';
+            setIsMenuOpen(false);
+        }
+        document.body.style.overflow = 'unset';
     }, [isMenuOpen]);
 
     return (
         <>
             <header className="fixed top-0 left-0 w-full p-6 md:p-8 lg:p-12 flex justify-between items-center z-50 mix-blend-difference text-white">
-                <Link href="/" className="text-lg md:text-2xl font-bold tracking-tighter hover:italic transition-all">
+                <TransitionLink href="/" className="text-lg md:text-2xl font-bold tracking-tighter hover:italic transition-all">
                     {siteName}
-                </Link>
+                </TransitionLink>
                 <button
                     onClick={() => setIsMenuOpen(true)}
                     className="p-2 hover:opacity-70 transition-opacity"
@@ -87,14 +95,14 @@ export default function Header({ siteName = 'PORTFOLIO.' }: HeaderProps) {
 
                 <nav className="flex flex-col items-center gap-5 md:gap-8">
                     {navLinks.map((link) => (
-                        <Link
+                        <TransitionLink
                             key={link.title}
                             href={link.href}
-                            onClick={() => setIsMenuOpen(false)}
+                            onBeforeTransition={closeMenuInstantly}
                             className="menu-link block text-3xl md:text-5xl lg:text-7xl font-light tracking-tight hover:italic hover:text-white/70 transition-all"
                         >
                             {link.title}
-                        </Link>
+                        </TransitionLink>
                     ))}
                 </nav>
             </div>

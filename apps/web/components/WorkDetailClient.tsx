@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import Link from 'next/link';
+import TransitionLink from './TransitionLink';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -195,12 +195,12 @@ export default function WorkDetailClient({ work }: WorkDetailClientProps) {
 
                 {/* ── Back link ────────────────────────────────────── */}
                 <div className="mt-32 pt-16 border-t border-[#0A192F]/10">
-                    <Link
+                    <TransitionLink
                         href="/works"
                         className="flex items-center gap-3 text-lg font-light hover:italic transition-all opacity-50 hover:opacity-100"
                     >
                         <ArrowLeft size={20} strokeWidth={1.5} /> All Works
-                    </Link>
+                    </TransitionLink>
                 </div>
             </div>
         </div>

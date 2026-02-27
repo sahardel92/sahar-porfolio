@@ -3,6 +3,7 @@ import { getPersonalInfo } from '../lib/sanity';
 import Header from '../components/Header';
 import SmoothScrollProvider from '../components/SmoothScrollProvider';
 import LoaderWrapper from '../components/LoaderWrapper';
+import PageTransitionProvider from '../components/PageTransition';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -22,7 +23,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     <LoaderWrapper>
                         <div className="bg-white text-[#0A192F] font-sans selection:bg-[#0A192F] selection:text-white overflow-x-hidden">
                             <Header siteName={siteName} />
-                            <main>{children}</main>
+                            <PageTransitionProvider>
+                                <main>{children}</main>
+                            </PageTransitionProvider>
                         </div>
                     </LoaderWrapper>
                 </SmoothScrollProvider>

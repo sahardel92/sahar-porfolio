@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import Link from 'next/link';
+import TransitionLink from './TransitionLink';
 import { ArrowRight } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -47,18 +47,18 @@ export default function BlogSection({ posts, showViewAll = true }: BlogSectionPr
                     <div className="flex items-center justify-between mb-12 md:mb-24">
                         <h2 className="text-sm uppercase tracking-widest opacity-60 font-medium">03 // Recent Thoughts</h2>
                         {showViewAll && posts.length > 0 && (
-                            <Link
+                            <TransitionLink
                                 href="/blog"
                                 className="group flex items-center gap-2 text-sm uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity font-medium"
                             >
                                 View All
                                 <ArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform" />
-                            </Link>
+                            </TransitionLink>
                         )}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12">
                         {posts.map((post, index) => (
-                            <Link key={post._id || index} href={`/blog/${post.slug.current}`}>
+                            <TransitionLink key={post._id || index} href={`/blog/${post.slug.current}`}>
                                 <article className="blog-item group cursor-pointer">
                                     <div className="aspect-[4/5] overflow-hidden relative mb-10">
                                         {post.coverImage ? (
@@ -77,7 +77,7 @@ export default function BlogSection({ posts, showViewAll = true }: BlogSectionPr
                                         {post.title}
                                     </h3>
                                 </article>
-                            </Link>
+                            </TransitionLink>
                         ))}
                     </div>
                 </div>
