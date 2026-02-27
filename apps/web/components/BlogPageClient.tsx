@@ -83,20 +83,22 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                         {currentPosts.map((post, index) => (
                             <TransitionLink key={post._id || index} href={`/blog/${post.slug.current}`}>
                                 <article className="blog-page-item group cursor-pointer">
-                                    <div className="aspect-[4/5] overflow-hidden relative mb-8">
-                                        {post.coverImage ? (
-                                            <img
-                                                src={urlFor(post.coverImage).width(600).url()}
-                                                alt={post.title}
-                                                className="blog-image-inner absolute top-[-20%] left-0 w-full h-[140%] object-cover"
-                                            />
-                                        ) : (
-                                            <div className="blog-image-inner absolute top-[-20%] left-0 w-full h-[140%] bg-[#0A192F]/5" />
-                                        )}
-                                        <div className="absolute inset-0 bg-[#0A192F] transform translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-in-out" />
+                                    <div className="mb-6 md:mb-8 w-full overflow-hidden rounded-xl">
+                                        <div className="aspect-[4/5] overflow-hidden relative transform group-hover:scale-[1.03] transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]">
+                                            {post.coverImage ? (
+                                                <img
+                                                    src={urlFor(post.coverImage).width(600).url()}
+                                                    alt={post.title}
+                                                    className="blog-image-inner absolute top-[-20%] left-0 w-full h-[140%] object-cover"
+                                                />
+                                            ) : (
+                                                <div className="blog-image-inner absolute top-[-20%] left-0 w-full h-[140%] bg-neutral-100" />
+                                            )}
+                                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-700 pointer-events-none" />
+                                        </div>
                                     </div>
-                                    <p className="text-sm opacity-60 mb-3 font-mono">{formatDate(post.date)}</p>
-                                    <h3 className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight leading-snug group-hover:italic transition-all">
+                                    <p className="text-xs uppercase tracking-widest text-neutral-400 group-hover:text-black mb-3 px-2 transition-colors duration-500">{formatDate(post.date)}</p>
+                                    <h3 className="text-xl md:text-2xl lg:text-3xl px-2 font-light tracking-tight text-neutral-900 leading-tight group-hover:text-black transition-colors duration-500">
                                         {post.title}
                                     </h3>
                                     {post.excerpt && (

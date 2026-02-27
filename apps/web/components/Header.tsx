@@ -93,15 +93,23 @@ export default function Header({ siteName = 'PORTFOLIO.' }: HeaderProps) {
                     <X size={40} className="md:w-12 md:h-12" strokeWidth={1.5} />
                 </button>
 
-                <nav className="flex flex-col items-center gap-5 md:gap-8">
-                    {navLinks.map((link) => (
+                <nav className="flex flex-col items-start justify-center gap-4 md:gap-6 w-full max-w-4xl px-8 mt-12">
+                    {navLinks.map((link, index) => (
                         <TransitionLink
                             key={link.title}
                             href={link.href}
                             onBeforeTransition={closeMenuInstantly}
-                            className="menu-link block text-3xl md:text-5xl lg:text-7xl font-light tracking-tight hover:italic hover:text-white/70 transition-all"
+                            className="group relative flex items-center justify-between w-full py-4 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter hover:text-white transition-colors"
                         >
-                            {link.title}
+                            <div className="flex items-center gap-6 md:gap-12 w-full">
+                                <span className="text-sm md:text-lg font-mono opacity-30 group-hover:opacity-100 transition-opacity duration-500">
+                                    0{index + 1}
+                                </span>
+                                <span className="transform group-hover:translate-x-4 md:group-hover:translate-x-8 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] text-neutral-300 group-hover:text-white">
+                                    {link.title}
+                                </span>
+                            </div>
+                            <div className="w-0 h-[1px] md:h-[2px] bg-white absolute bottom-0 left-0 group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] opacity-30 group-hover:opacity-100" />
                         </TransitionLink>
                     ))}
                 </nav>
