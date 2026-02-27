@@ -22,8 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <SmoothScrollProvider>
                     <LoaderWrapper>
                         <div className="bg-white text-[#0A192F] font-sans selection:bg-[#0A192F] selection:text-white overflow-x-hidden">
-                            <Header siteName={siteName} />
-                            <PageTransitionProvider>
+                            <PageTransitionProvider header={<Header siteName={siteName} />}>
                                 <main>{children}</main>
                             </PageTransitionProvider>
                         </div>

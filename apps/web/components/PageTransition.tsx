@@ -35,8 +35,10 @@ export function usePageTransition() {
 
 export default function PageTransitionProvider({
     children,
+    header,
 }: {
     children: React.ReactNode;
+    header?: React.ReactNode;
 }) {
     const router = useRouter();
     const pathname = usePathname();
@@ -175,6 +177,7 @@ export default function PageTransitionProvider({
 
     return (
         <PageTransitionContext.Provider value={{ navigateTo, isTransitioning }}>
+            {header}
             <div
                 ref={overlayRef}
                 className="page-transition-overlay"

@@ -40,11 +40,6 @@ export interface BlogPost {
     coverImage?: SanityImage;
 }
 
-export interface Skill {
-    _id: string;
-    name: string;
-    row: 1 | 2;
-}
 
 export interface PersonalInfo {
     _id: string;
@@ -55,4 +50,17 @@ export interface PersonalInfo {
     github?: string;
     twitter?: string;
     linkedin?: string;
+}
+
+export interface AboutInfo {
+    _id: string;
+    title?: string;
+    subtitle?: string;
+    description?: string;
+    image?: SanityImage;
+    resume?: {
+        asset: {
+            url: string;
+        }
+    };
 }

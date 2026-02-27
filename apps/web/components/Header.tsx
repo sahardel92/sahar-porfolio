@@ -8,7 +8,7 @@ import TransitionLink from './TransitionLink';
 
 const navLinks = [
     { title: 'Home', href: '/' },
-    { title: 'Skills', href: '/skills' },
+    { title: 'About', href: '/about' },
     { title: 'Works', href: '/works' },
     { title: 'Blog', href: '/blog' },
     { title: 'Contact', href: '/contact' },
@@ -68,9 +68,9 @@ export default function Header({ siteName = 'PORTFOLIO.' }: HeaderProps) {
     return (
         <>
             <header className="fixed top-0 left-0 w-full p-6 md:p-8 lg:p-12 flex justify-between items-center z-50 mix-blend-difference text-white">
-                <TransitionLink href="/" className="text-lg md:text-2xl font-bold tracking-tighter hover:italic transition-all">
+                <div className="text-lg md:text-2xl font-bold tracking-tighter transition-all select-none">
                     {siteName}
-                </TransitionLink>
+                </div>
                 <button
                     onClick={() => setIsMenuOpen(true)}
                     className="p-2 hover:opacity-70 transition-opacity"
