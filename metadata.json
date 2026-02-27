@@ -1,0 +1,5 @@
+{
+  "name": "Minimalist Portfolio",
+  "description": "A minimalist personal portfolio with GSAP animations, a full-screen burger menu, and sections for skills, works, blogs, and contact.",
+  "requestFramePermissions": []
+}
