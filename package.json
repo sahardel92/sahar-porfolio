@@ -9,5 +9,8 @@
     "build:studio": "pnpm --filter studio build",
     "deploy:studio": "pnpm --filter studio deploy",
     "lint": "pnpm --filter web lint"
+  },
+  "devDependencies": {
+    "next": "^16.1.6"
   }
 }
